@@ -4,9 +4,6 @@
 
 #include "sort.h"
 #include "lib.h"
-#include <iostream>
-
-using namespace std;
 
 void insert(int *arr, int index, int size) {
     for (int i = index - 1; i >= 0; --i) {
@@ -45,8 +42,6 @@ void quick_sort(int *arr, int begin, int end) {
     if (begin >= end)
         return;
     int pivot_point = pivot(arr, begin, end);
-    cout << pivot_point << endl;
-    arr_print(arr, begin, end);
     quick_sort(arr, begin, pivot_point - 1);
     quick_sort(arr, pivot_point + 1, end);
 }
