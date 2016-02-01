@@ -26,3 +26,18 @@ void arr_print(int *arr, int begin, int end) {
     }
     cout << endl;
 }
+
+void arr_copy(int *arr_src, int *arr_dst, int size) {
+    for (int i = 0; i < size; ++i) {
+        arr_dst[i] = arr_src[i];
+    }
+}
+
+int arr_copy(int *arr_src, int *arr_dst, int begin_src, int end_src, int begin_dst, int end_dst) {
+    if (end_dst - begin_dst != end_src - begin_src)
+        return -1;
+    for (int i = 0; i + begin_src <= end_src; ++i) {
+        arr_dst[i + begin_dst] = arr_src[i + begin_src];
+    }
+    return 0;
+}
