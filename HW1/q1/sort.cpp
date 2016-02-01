@@ -95,12 +95,7 @@ void merge_sort(int *arr, int begin, int end) {
         int *arr2 = new int[end - mid];
         arr_copy(arr, arr2, mid + 1, end, 0, end - mid - 1);
         int *merged_arr = merge(arr1, 0, mid - begin, arr2, 0, end - mid - 1);
-        cout << "Merged:" << begin << " " << end << endl;
-        arr_print(merged_arr, 6);
-        cout << endl;
         arr_copy(merged_arr, arr, 0, end - begin, begin, end);
-        cout << "After Merged: " << endl;
-        arr_print(arr, 6);
     }
 }
 
