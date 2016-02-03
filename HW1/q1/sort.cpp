@@ -87,7 +87,6 @@ void merge_sort(int *arr, int begin, int end) {
         return;
     else {
         int mid = (begin + end) / 2;
-        arr_print(arr, begin, end);
         merge_sort(arr, begin, mid);
         merge_sort(arr, mid + 1, end);
         int *arr1 = new int[mid - begin + 1];
