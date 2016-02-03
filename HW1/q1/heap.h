@@ -7,13 +7,14 @@
 
 #define MAX_NUM 100
 class heap {
-public:
     int elements[MAX_NUM];
     int last = 0;
 public:
+    heap();
     void insert(int data);
     int remove();
     void print();
+    void sort_and_print();
 };
 
 #endif //Q1_HEAP_H
