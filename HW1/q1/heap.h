@@ -6,15 +6,21 @@
 #define Q1_HEAP_H
 
 #define MAX_NUM 200000
+
 class heap {
     int elements[MAX_NUM];
     int last = 0;
 public:
     heap();
+
     void insert(int data);
+
     int remove();
+
     void print();
+
     void sort();
+
     void sort_and_print();
 };
 

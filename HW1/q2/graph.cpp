@@ -8,13 +8,6 @@
 
 using namespace std;
 
-graph::graph(int vertices_number) {
-    adj_martix = new int *[vertices_number];
-    for (int i = 0; i < vertices_number; ++i) {
-        adj_martix[i] = new int[vertices_number];
-    }
-}
-
 graph::graph(char *file) {
 
     ifstream file_io(file);
@@ -37,9 +30,18 @@ int *graph::adj_vertices(int vertex) {
     return adj_martix[vertex];
 }
 
-void graph::dfs(int vertex) {
+bool graph::dfs() {
+    return dfs(0);
+}
+
+bool graph::dfs(int vertex) {
     static bool *visited = new bool[vertices_number];
     static int state = 0;
+    bool printed = false;
+    if(vertex == -1) {
+        state = 0;
+        return false;
+    }
     if (state == 0) {
         for (int i = 0; i < vertices_number; ++i) {
             visited[i] = false;
@@ -50,10 +52,12 @@ void graph::dfs(int vertex) {
     for (int j = 0; j < vertices_number; ++j) {
         if (adj_vertices(vertex)[j] && !visited[j]) {
             visited[j] = true;
+            printed = true;
             cout << j << " ";
             dfs(j);
         }
     }
+    return printed;
 }
 
 int graph::get_vertices_number() {

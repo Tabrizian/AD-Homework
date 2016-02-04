@@ -9,15 +9,13 @@ class graph {
     int **adj_martix; // Adjacency Matrix
     int vertices_number;
 public:
-    graph(int vertices_number);
-
     graph(char *file); // Reads adjacency matrix from file.
 
     int *adj_vertices(int vertex); // Returns adjacent vertices of a given vertex.
 
-    void dfs();
+    bool dfs(); //DFS with default vertex which is the first vertex
 
-    void dfs(int vertex);
+    bool dfs(int vertex); // Enter -1 for reset.
 
     void bfs();
 

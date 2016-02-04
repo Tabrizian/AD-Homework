@@ -4,10 +4,11 @@
 using namespace std;
 
 int main() {
-    graph graph1("test-cases/1.txt");
+    graph graph1("test-cases/3.txt");
     for (int i = 0; i < graph1.get_vertices_number(); ++i) {
-        graph1.dfs(i);
-        cout<<endl;
+        bool printed = graph1.dfs(i);
+        if(printed) cout<<endl;
     }
+    graph1.dfs(-1);
     return 0;
 }

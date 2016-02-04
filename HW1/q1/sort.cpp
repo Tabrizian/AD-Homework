@@ -103,7 +103,7 @@ void merge_sort(int *arr, int size) {
     merge_sort(arr, 0, size - 1);
 }
 
-void heap_sort(int *arr, int size){
+void heap_sort(int *arr, int size) {
     heap heap_arr;
     for (int i = 0; i < size; ++i) {
         heap_arr.insert(arr[i]);

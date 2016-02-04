@@ -1,4 +1,3 @@
-
 //Created by Iman Tabrizian
 
 #ifndef Q1_SORT_H
