@@ -30,7 +30,7 @@ int pivot(int *arr, int begin, int end) {
     int j = end;
     if (i < j) {
         while (i < j) {
-            while (arr[i] < arr[begin] && i < end) i++;
+            while (arr[i] <= arr[begin] && i < end) i++;
             while (arr[j] > arr[begin] && j > begin) j--;
             if (i < j) {
                 swap(arr[i], arr[j]);

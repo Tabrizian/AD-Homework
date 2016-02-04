@@ -50,4 +50,10 @@ void heap::sort_and_print() {
     cout << endl;
 }
 
+void heap::sort(){
+    while (last) {
+        remove();
+    }
+}
+
 

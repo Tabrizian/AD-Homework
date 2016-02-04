@@ -14,6 +14,7 @@ public:
     void insert(int data);
     int remove();
     void print();
+    void sort();
     void sort_and_print();
 };
 
