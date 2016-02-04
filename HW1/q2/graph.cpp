@@ -5,6 +5,7 @@
 #include "graph.h"
 #include <fstream>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -31,7 +32,38 @@ int *graph::adj_vertices(int vertex) {
 }
 
 bool graph::bfs() {
+    return bfs(0);
+}
 
+bool graph::bfs(int vertex) {
+    static bool *visited = new bool[vertices_number];
+    static queue<int> children;
+    static int state = 0;
+    bool printed = false;
+    if (vertex == -1) {
+        state = 0;
+        return false;
+    }
+    if (state == 0) {
+        for (int i = 0; i < vertices_number; ++i) {
+            visited[i] = false;
+        }
+        state = 1;
+    }
+
+    cout << vertex << " ";
+
+    for (int i = 0; i < vertices_number; ++i) {
+        if (adj_vertices(vertex)[i] && !visited[i]) {
+            children.push(i);
+            visited[vertex] = true;
+        }
+    }
+    int to_be_popped = children.front();
+    children.pop();
+    bfs(to_be_popped);
+
+    return printed;
 }
 
 bool graph::dfs() {
@@ -42,7 +74,7 @@ bool graph::dfs(int vertex) {
     static bool *visited = new bool[vertices_number];
     static int state = 0;
     bool printed = false;
-    if(vertex == -1) {
+    if (vertex == -1) {
         state = 0;
         return false;
     }

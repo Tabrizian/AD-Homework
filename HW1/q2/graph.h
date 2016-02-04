@@ -34,7 +34,17 @@ public:
      */
     bool dfs(int vertex);
 
+    /*
+     * BFS with default vertex which is the first vertex
+     */
     bool bfs();
+
+    /*
+     * The return type is the indicator of whether sth is printed </br>
+     * or not.
+     * Enter -1 for reset the states.
+     */
+    bool bfs(int vertex);
 
     int get_vertices_number();
 
