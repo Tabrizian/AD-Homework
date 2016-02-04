@@ -6,18 +6,35 @@
 #define Q2_GRAPH_H
 
 class graph {
-    int **adj_martix; // Adjacency Matrix
+    /*
+     * Adjacency Matrix
+     */
+    int **adj_martix;
     int vertices_number;
 public:
-    graph(char *file); // Reads adjacency matrix from file.
+    /*
+     * Reads adjacency matrix from file.
+     */
+    graph(char *file);
 
-    int *adj_vertices(int vertex); // Returns adjacent vertices of a given vertex.
+    /*
+     * Returns adjacent vertices of a given vertex.
+     */
+    int *adj_vertices(int vertex);
 
-    bool dfs(); //DFS with default vertex which is the first vertex
+    /*
+     * DFS with default vertex which is the first vertex
+     */
+    bool dfs();
 
-    bool dfs(int vertex); // Enter -1 for reset.
+    /*
+     * The return type is the indicator of whether sth is printed </br>
+     * or not.
+     * Enter -1 for reset the states.
+     */
+    bool dfs(int vertex);
 
-    void bfs();
+    bool bfs();
 
     int get_vertices_number();
 

@@ -30,6 +30,10 @@ int *graph::adj_vertices(int vertex) {
     return adj_martix[vertex];
 }
 
+bool graph::bfs() {
+
+}
+
 bool graph::dfs() {
     return dfs(0);
 }
