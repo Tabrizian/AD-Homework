@@ -34,10 +34,11 @@ string graph::dfs(bool &printed) {
     return dfs(0, printed);
 }
 
-string graph::dfs(int vertex, bool &printed) {
+string graph::dfs(int vertex, bool &found) {
     static bool *visited = new bool[vertices_number];
     static int state = 0;
-    printed = false;
+    string sequence;
+    found = false;
     if (vertex == -1) {
         state = 0;
         return 0;
@@ -50,23 +51,32 @@ string graph::dfs(int vertex, bool &printed) {
     }
 
     if(!visited[vertex]) {
-        cout << vertex << " ";
+        sequence.append(" ");
+        sequence.append(to_string(vertex));
         visited[vertex] = true;
+    }else{
+        sequence.erase(sequence.length() - 1);
+        sequence.erase(sequence.length() - 1);
     }
 
     for (int j = 0; j < vertices_number; ++j) {
         if (adj_vertices(vertex)[j] && !visited[j]) {
-            printed = true;
-            dfs(j, printed);
+            string temp = dfs(j, found);
+            if(found)
+                return sequence.append(temp);
+
             visited[j] = false;
         } else if (adj_vertices(vertex)[j] && visited[j]) {
-            cout << "Found a door!!!1" << endl;
-            return "Hello";
+            sequence.append(" ");
+            sequence.append(to_string(j));
+            cout << "Found a loop!!!" << endl;
+            found = true;
+            return sequence;
         }
 
     }
 
-    return "Hello";
+    return "Not found";
 }
 
 int graph::get_vertices_number() {

@@ -4,9 +4,9 @@
 using namespace std;
 
 int main() {
-    graph graph1("test-cases/3.txt");
+    graph graph1("test-cases/1.txt");
     bool printed;
-    graph1.dfs(0,printed);
+    cout<< graph1.dfs(7,printed);
     return 0;
 
 }

@@ -35,7 +35,7 @@ public:
      * or not.
      * Enter -1 for reset the states.
      */
-    string dfs(int vertex, bool &printed);
+    string dfs(int vertex, bool &found);
 
     /*
      * BFS with default vertex which is the first vertex
