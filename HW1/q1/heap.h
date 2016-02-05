@@ -5,7 +5,7 @@
 #ifndef Q1_HEAP_H
 #define Q1_HEAP_H
 
-#define MAX_NUM 200000
+#define MAX_NUM 300000
 
 class heap {
     int elements[MAX_NUM];

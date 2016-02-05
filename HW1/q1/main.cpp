@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "sort.h"
+#include "lib.h"
 #include <chrono>
 #include <cstring>
 
@@ -12,17 +13,15 @@
 using namespace std;
 using namespace std::chrono;
 
-#define SIZE_OF_TEST_CASE "20000"
-
 int *read(string num) {
     string file_name = string("test-cases/") + string(num) + string(".txt");
     ifstream test_case(file_name);
-    test_case.close();
+
     int *arr = new int[atoi(num.c_str())];
     for (int i = 0; i < atoi(num.c_str()); ++i) {
         test_case >> arr[i];
     }
-
+    test_case.close();
     return arr;
 }
 
@@ -34,7 +33,7 @@ int main() {
     for (int i = 0; i < 18; i++) {
         int *arr = read(num[i]);
         high_resolution_clock::time_point t1 = high_resolution_clock::now();
-        insertion_sort(arr, atoi(num[i].c_str()));
+        heap_sort(arr, atoi(num[i].c_str()));
         high_resolution_clock::time_point t2 = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(t2 - t1).count();
         cout << duration <<endl;
