@@ -1,9 +1,11 @@
 //
 // Created by Iman Tabrizian.
 //
+#include <queue>
 
 #ifndef Q2_GRAPH_H
 #define Q2_GRAPH_H
+using namespace std;
 
 class graph {
     /*
@@ -49,6 +51,8 @@ public:
     int get_vertices_number();
 
     ~graph();
+
+    void add_vertices_to_queue(queue<int> &children, int vertex, bool *visited);
 };
 
 #endif //Q2_GRAPH_H

@@ -37,33 +37,39 @@ bool graph::bfs() {
 
 bool graph::bfs(int vertex) {
     static bool *visited = new bool[vertices_number];
-    static queue<int> children;
+    queue<int> children;
     static int state = 0;
     bool printed = false;
-    if (vertex == -1) {
-        state = 0;
-        return false;
-    }
+
     if (state == 0) {
         for (int i = 0; i < vertices_number; ++i) {
             visited[i] = false;
         }
         state = 1;
     }
+    if(!visited[vertex]) {
+        cout << vertex << " ";
+        visited[vertex] = true;
+        add_vertices_to_queue(children, vertex, visited);
+        printed = true;
+    }
 
-    cout << vertex << " ";
 
-    for (int i = 0; i < vertices_number; ++i) {
-        if (adj_vertices(vertex)[i] && !visited[i]) {
-            children.push(i);
-            visited[vertex] = true;
+    while (children.size() != 0) {
+        cout << children.front() << " ";
+        add_vertices_to_queue(children, children.front(), visited);
+        children.pop();
+    }
+    return printed;
+}
+
+void graph::add_vertices_to_queue(queue<int> &children, int vertex, bool *visited) {
+    for (int j = 0; j < vertices_number; ++j) {
+        if (adj_vertices(vertex)[j] && !visited[j]) {
+            children.push(j);
+            visited[j] = true;
         }
     }
-    int to_be_popped = children.front();
-    children.pop();
-    bfs(to_be_popped);
-
-    return printed;
 }
 
 bool graph::dfs() {
