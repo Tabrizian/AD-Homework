@@ -38,11 +38,12 @@ string graph::dfs(int vertex, bool &found) {
     static bool *visited = new bool[vertices_number];
     static int state = 0;
     string sequence;
-    found = false;
+
     if (vertex == -1) {
         state = 0;
-        return 0;
+        return " ";
     }
+    found = false;
     if (state == 0) {
         for (int i = 0; i < vertices_number; ++i) {
             visited[i] = false;
@@ -76,7 +77,7 @@ string graph::dfs(int vertex, bool &found) {
 
     }
 
-    return "Not found";
+    return "Not found!";
 }
 
 int graph::get_vertices_number() {
