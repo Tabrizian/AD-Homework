@@ -27,31 +27,32 @@ public:
     /*
      * DFS with default vertex which is the first vertex
      */
-    bool dfs();
+    int dfs(bool &printed);
 
     /*
      * The return type is the indicator of whether sth is printed </br>
      * or not.
      * Enter -1 for reset the states.
      */
-    bool dfs(int vertex);
+    int dfs(int vertex,bool &printed);
 
     /*
      * BFS with default vertex which is the first vertex
      */
-    bool bfs();
+    int bfs(bool &printed);
 
     /*
      * The return type is the indicator of whether sth is printed </br>
      * or not.
      * Enter -1 for reset the states.
      */
-    bool bfs(int vertex);
+    int bfs(int vertex, bool &printed);
 
     int get_vertices_number();
 
     ~graph();
 
+private:
     void add_vertices_to_queue(queue<int> &children, int vertex, bool *visited);
 };
 

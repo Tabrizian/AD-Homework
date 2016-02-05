@@ -31,15 +31,16 @@ int *graph::adj_vertices(int vertex) {
     return adj_martix[vertex];
 }
 
-bool graph::bfs() {
-    return bfs(0);
+int graph::bfs(bool &printed) {
+    return bfs(0,printed);
 }
 
-bool graph::bfs(int vertex) {
+int graph::bfs(int vertex, bool& printed) {
     static bool *visited = new bool[vertices_number];
     queue<int> children;
     static int state = 0;
-    bool printed = false;
+    printed = false;
+    int num = 0;
 
     if (state == 0) {
         for (int i = 0; i < vertices_number; ++i) {
@@ -47,20 +48,28 @@ bool graph::bfs(int vertex) {
         }
         state = 1;
     }
-    if(!visited[vertex]) {
+
+    if (vertex == -1) {
+        state = 0;
+        return false;
+    }
+
+    if (!visited[vertex]) {
         cout << vertex << " ";
         visited[vertex] = true;
         add_vertices_to_queue(children, vertex, visited);
         printed = true;
+        num++;
     }
 
 
     while (children.size() != 0) {
         cout << children.front() << " ";
+        num++;
         add_vertices_to_queue(children, children.front(), visited);
         children.pop();
     }
-    return printed;
+    return num;
 }
 
 void graph::add_vertices_to_queue(queue<int> &children, int vertex, bool *visited) {
@@ -72,17 +81,17 @@ void graph::add_vertices_to_queue(queue<int> &children, int vertex, bool *visite
     }
 }
 
-bool graph::dfs() {
-    return dfs(0);
+int graph::dfs(bool &printed) {
+    return dfs(0, printed);
 }
 
-bool graph::dfs(int vertex) {
+int graph::dfs(int vertex, bool &printed) {
     static bool *visited = new bool[vertices_number];
     static int state = 0;
-    bool printed = false;
+    printed = false;
     if (vertex == -1) {
         state = 0;
-        return false;
+        return 0;
     }
     if (state == 0) {
         for (int i = 0; i < vertices_number; ++i) {
@@ -96,10 +105,11 @@ bool graph::dfs(int vertex) {
             visited[j] = true;
             printed = true;
             cout << j << " ";
-            dfs(j);
+            return dfs(j,printed) + 1;
         }
     }
-    return printed;
+
+    return 0;
 }
 
 int graph::get_vertices_number() {
