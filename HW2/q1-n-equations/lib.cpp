@@ -14,6 +14,15 @@ void arr_print(int *arr, int size) {
     cout << endl;
 }
 
+void arr_print(double **arr, int size){
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
 void swap(int &a, int &b) {
     int temp = a;
     a = b;
@@ -56,4 +65,18 @@ void arr_copy(double **arr_src, double **arr_dst, int size, int skip_row, int sk
         }
         col_dst = 0;
     }
+}
+
+void arr_create(double ***arr, int size){
+    *arr = new double*[size];
+    for (int i = 0; i < size; ++i) {
+        (*arr)[i] = new double[size];
+    }
+}
+
+void arr_delete(double **arr, int size){
+    for (int i = 0; i < size; ++i) {
+        delete arr[i];
+    }
+    delete arr;
 }
