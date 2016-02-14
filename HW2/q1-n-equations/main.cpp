@@ -7,12 +7,12 @@ using namespace std;
 
 int main() {
     char file_name[100];
-    cout<<"Enter the path:";
-    cin>>file_name;
+    cout << "Enter the path:";
+    cin >> file_name;
     ifstream input(file_name);
 
-    if(!input.is_open()){
-        cout<<"File doesn't exist!!";
+    if (!input.is_open()) {
+        cout << "File doesn't exist!!";
         return 0;
     }
 
@@ -20,7 +20,7 @@ int main() {
     input >> n; //Number of equations
     double **arr_coefficients;
     arr_coefficients = new double *[n];
-    
+
     for (int i = 0; i < n; ++i) {
         arr_coefficients[i] = new double[n];
         for (int j = 0; j < n; ++j) {
@@ -34,6 +34,10 @@ int main() {
 
     double det_coefficients = det(arr_coefficients, n);
 
+    if (det_coefficients == 0) {
+        cout << "Determinant of coefficients can't be zero! " << endl;
+        return -1;
+    }
     for (int k = 0; k < n; ++k) {
         double **arr;
         arr_create(&arr, n);
@@ -46,7 +50,7 @@ int main() {
             }
         }
         double ans = det(arr, n) / det_coefficients;
-        cout << "Solution " << k << " is " << ans <<endl;
+        cout << "Solution " << k << " is " << ans << endl;
         arr_delete(arr, n);
     }
 
