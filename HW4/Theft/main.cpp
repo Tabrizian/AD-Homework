@@ -16,8 +16,9 @@ void print_way(int **arr_direction, int n) {
     int y = n - 1;
     if (arr_direction[x][y] == -1) {
         cout << "BUSTED" << endl;
+        return;
     }
-    for (int i = n - 1; i >= 0; --i) {
+    for (int i = 0; i < 2*n; i++) {
         cout << arr_direction[x][y];
         if (arr_direction[x][y] == 0) {
             x--;
@@ -44,9 +45,21 @@ int main() {
         arr_computed_data[j] = new int[n];
     }
 
+    bool minus1 = false;
+    bool minus2 = false;
     for (int k = 0; k < n; ++k) {
-        arr_computed_data[k][0] = arr_initial_data[k][0];
-        arr_computed_data[0][k] = arr_initial_data[0][k];
+        if(arr_initial_data[k][0] == -1)
+            minus1 = true;
+        if(arr_initial_data[0][k] == -1)
+            minus2 = true;
+        if(!minus1)
+            arr_computed_data[k][0] = arr_initial_data[k][0];
+        else
+            arr_computed_data[k][0] = -1;
+        if(!minus2)
+            arr_computed_data[0][k] = arr_initial_data[0][k];
+        else
+            arr_computed_data[0][k] = -1;
     }
 
 
@@ -81,7 +94,7 @@ int main() {
                 } else if (arr_computed_data[i][l - 1] == arr_computed_data[i - 1][l]) {
                     if (arr_computed_data[i][l - 1] == -1) {
                         arr_direction[i][l] = -1;
-                        arr_computed_data[i][l] == -1;
+                        arr_computed_data[i][l] = -1;
                     } else {
                         arr_direction[i][l] = 1;
                     }
@@ -91,7 +104,7 @@ int main() {
         }
     }
 
-    cout<<"Computed data:"<<endl;
+    cout << "Computed data:" << endl;
     arr_print(arr_computed_data, n);
     print_way(arr_direction, n);
     return 0;
