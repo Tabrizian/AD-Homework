@@ -47,17 +47,18 @@ int main() {
 
     bool minus1 = false;
     bool minus2 = false;
-    for (int k = 0; k < n; ++k) {
+    for (int k = 1; k < n; ++k) {
         if(arr_initial_data[k][0] == -1)
             minus1 = true;
         if(arr_initial_data[0][k] == -1)
             minus2 = true;
-        if(!minus1)
-            arr_computed_data[k][0] = arr_initial_data[k][0];
+        if(!minus1) {
+            arr_computed_data[k][0] = arr_computed_data[k-1][0]+arr_initial_data[k][0];
+        }
         else
             arr_computed_data[k][0] = -1;
         if(!minus2)
-            arr_computed_data[0][k] = arr_initial_data[0][k];
+            arr_computed_data[0][k] = arr_computed_data[0][k-1]+arr_initial_data[0][k-1];
         else
             arr_computed_data[0][k] = -1;
     }
@@ -97,6 +98,7 @@ int main() {
                         arr_computed_data[i][l] = -1;
                     } else {
                         arr_direction[i][l] = 1;
+                        arr_computed_data[i][l] = arr_computed_data[i][l-1]+arr_initial_data[i][l];
                     }
 
                 }
