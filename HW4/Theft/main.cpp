@@ -204,6 +204,7 @@ int memoization_find_way(int i, int j, int **arr_initial_data) {
         }
 
         arr_init(arr_computed_data, i + 1, -2);
+        state++;
     }
 
     if(arr_computed_data[i][j] != -2){
@@ -249,6 +250,6 @@ void memoization() {
 }
 
 int main() {
-    divide_and_conquer();
+    memoization();
     return 0;
 }
