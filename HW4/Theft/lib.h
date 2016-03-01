@@ -29,4 +29,5 @@ void arr_delete(double **arr, int size);
 
 void swap(int &a, int &b);
 
+void arr_init(int **arr, int size, int value);
 #endif //Q1_LIB_H

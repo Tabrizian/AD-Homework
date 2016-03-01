@@ -89,3 +89,11 @@ void arr_delete(double **arr, int size){
     }
     delete arr;
 }
+
+void arr_init(int **arr, int size, int value){
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+           arr[i][j] = value;
+        }
+    }
+}
