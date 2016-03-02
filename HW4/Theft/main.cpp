@@ -165,6 +165,7 @@ int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr
         for (int l = 0; l < i + 1; ++l) {
             (*arr_direction)[l] = new int[i + 1];
         }
+        state++;
     }
     if (i == 0 && j == 0) {
         return 0;
@@ -278,6 +279,6 @@ void memoization() {
 }
 
 int main() {
-    memoization();
+    divide_and_conquer();
     return 0;
 }
