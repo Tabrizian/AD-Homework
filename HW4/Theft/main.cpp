@@ -194,7 +194,7 @@ void divide_and_conquer() {
     cout << divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data);
 }
 
-int memoization_find_way(int i, int j, int **arr_initial_data) {
+int memoization_find_way(int i, int j, int **arr_initial_data, int ***arr_direction) {
     static int state = 0;
     static int **arr_computed_data;
     if (state == 0) {
@@ -203,28 +203,38 @@ int memoization_find_way(int i, int j, int **arr_initial_data) {
             arr_computed_data[k] = new int[i + 1];
         }
 
+        *arr_direction = new int *[i + 1];
+        for (int l = 0; l < i + 1; ++l) {
+            (*arr_direction)[l] = new int[i + 1];
+        }
+
         arr_init(arr_computed_data, i + 1, -2);
         state++;
     }
 
-    if(arr_computed_data[i][j] != -2){
+    if (arr_computed_data[i][j] != -2) {
         return arr_computed_data[i][j];
     } else {
         if (i == 0 && j == 0) {
             return 0;
         } else if (i == 0) {
-            return memoization_find_way(i, j - 1, arr_initial_data) + arr_initial_data[i][j];
+            (*arr_direction)[i][j] = RIGHT;
+            return memoization_find_way(i, j - 1, arr_initial_data, arr_direction) + arr_initial_data[i][j];
         } else if (j == 0) {
-            return memoization_find_way(i - 1, j, arr_initial_data) + arr_initial_data[i][j];
+            (*arr_direction)[i][j] = DOWN;
+            return memoization_find_way(i - 1, j, arr_initial_data,arr_direction) + arr_initial_data[i][j];
         } else {
-            int up = memoization_find_way(i, j - 1, arr_initial_data);
-            int down = memoization_find_way(i - 1, j, arr_initial_data);
-            if (up > down) {
-                return up + arr_initial_data[i][j];
-            } else if (up < down) {
+            int right = memoization_find_way(i, j - 1, arr_initial_data,arr_direction);
+            int down = memoization_find_way(i - 1, j, arr_initial_data,arr_direction);
+            if (right > down) {
+                (*arr_direction)[i][j] = RIGHT;
+                return right + arr_initial_data[i][j];
+            } else if (right < down) {
+                (*arr_direction)[i][j] = DOWN;
                 return down + arr_initial_data[i][j];
             } else {
-                return up + arr_initial_data[i][j];
+                (*arr_direction)[i][j] = 0;
+                return right + arr_initial_data[i][j];
             }
         }
     }
@@ -246,7 +256,9 @@ void memoization() {
         get_input(arr_initial_data, n);
     }
 
-    cout << memoization_find_way(n - 1, n - 1, arr_initial_data);
+    int **arr_direction;
+    cout << memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction);
+    print_way(arr_direction, n);
 }
 
 int main() {
