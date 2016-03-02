@@ -1,15 +1,11 @@
 #include <iostream>
 #include <fstream>
+#include <stack>
 #include "lib.h"
 
 #define DOWN 1
 #define RIGHT 0
 using namespace std;
-
-struct data_dc {
-    int num_of_golds;
-    char path;
-};
 
 void get_input(int **arr, int n) {
     for (int i = 0; i < n; ++i) {
@@ -42,17 +38,23 @@ int get_input(int ***arr, char *filename) {
 void print_way(int **arr_direction, int n) {
     int x = n - 1;
     int y = n - 1;
+    stack<int> path;
     if (arr_direction[x][y] == -1) {
         cout << "BUSTED" << endl;
         return;
     }
     for (int i = 0; i < 2 * n - 2; i++) {
-        cout << arr_direction[x][y];
+        path.push(arr_direction[x][y]);
         if (arr_direction[x][y] == DOWN) {
             x--;
         } else if (arr_direction[x][y] == RIGHT) {
             y--;
         }
+    }
+
+    while(path.size() != 0){
+        cout<<path.top();
+        path.pop();
     }
 }
 
@@ -156,22 +158,34 @@ void dynamic_programming() {
     print_way(arr_direction, n);
 }
 
-int divide_and_conquer_find_way(int i, int j, int **arr_initial_data) {
+int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr_direction) {
+    static int state = 0;
+    if(state == 0){
+        *arr_direction = new int *[i + 1];
+        for (int l = 0; l < i + 1; ++l) {
+            (*arr_direction)[l] = new int[i + 1];
+        }
+    }
     if (i == 0 && j == 0) {
         return 0;
     } else if (i == 0) {
-        return divide_and_conquer_find_way(i, j - 1, arr_initial_data) + arr_initial_data[i][j];
+        (*arr_direction)[i][j] = RIGHT;
+        return divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction) + arr_initial_data[i][j];
     } else if (j == 0) {
-        return divide_and_conquer_find_way(i - 1, j, arr_initial_data) + arr_initial_data[i][j];
+        (*arr_direction)[i][j] = DOWN;
+        return divide_and_conquer_find_way(i - 1, j, arr_initial_data, arr_direction) + arr_initial_data[i][j];
     } else {
-        int up = divide_and_conquer_find_way(i, j - 1, arr_initial_data);
-        int down = divide_and_conquer_find_way(i - 1, j, arr_initial_data);
-        if (up > down) {
-            return up + arr_initial_data[i][j];
-        } else if (up < down) {
+        int right = divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction);
+        int down = divide_and_conquer_find_way(i - 1, j, arr_initial_data, arr_direction);
+        if (right > down) {
+            (*arr_direction)[i][j] = RIGHT;
+            return right + arr_initial_data[i][j];
+        } else if (right < down) {
+            (*arr_direction)[i][j] = DOWN;
             return down + arr_initial_data[i][j];
         } else {
-            return up + arr_initial_data[i][j];
+            (*arr_direction)[i][j] = 0;
+            return right + arr_initial_data[i][j];
         }
     }
 }
@@ -191,7 +205,9 @@ void divide_and_conquer() {
         get_input(arr_initial_data, n);
     }
 
-    cout << divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data);
+    int **arr_direction;
+    cout << divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data, &arr_direction)<<endl;
+    print_way(arr_direction, n);
 }
 
 int memoization_find_way(int i, int j, int **arr_initial_data, int ***arr_direction) {
@@ -257,7 +273,7 @@ void memoization() {
     }
 
     int **arr_direction;
-    cout << memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction);
+    cout << memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction)<<endl;
     print_way(arr_direction, n);
 }
 
