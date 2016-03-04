@@ -30,4 +30,6 @@ void arr_delete(double **arr, int size);
 void swap(int &a, int &b);
 
 void arr_init(int **arr, int size, int value);
+
+void arr_random(int **arr, int size, int min_value, int max_value);
 #endif //Q1_LIB_H

@@ -1,8 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <stack>
+#include <chrono>
 #include "lib.h"
 
+
+
+using namespace std::chrono;
 #define DOWN 1
 #define RIGHT 0
 using namespace std;
@@ -74,6 +78,13 @@ void dynamic_programming() {
         char filename[100];
         cin >> filename;
         n = get_input(&arr_initial_data, filename);
+    } else if (input_type == 'r') {
+        cin >> n;
+        arr_initial_data = new int*[n];
+        for (int i = 0; i < n; ++i) {
+            arr_initial_data[i] = new int[n];
+        }
+        arr_random(arr_initial_data,n,-1,4);
     } else {
         cin >> n;
         arr_initial_data = new int *[n];
@@ -82,6 +93,7 @@ void dynamic_programming() {
         }
         get_input(arr_initial_data, n);
     }
+
 
     int **arr_computed_data = new int *[n];
     for (int j = 0; j < n; ++j) {
@@ -98,7 +110,7 @@ void dynamic_programming() {
 
     arr_computed_data[0][0] = arr_initial_data[0][0];
     arr_direction[0][0] = 0;
-
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     for (int k = 1; k < n; ++k) {
         if (arr_initial_data[k][0] == -1)
             minus1 = true;
@@ -160,8 +172,11 @@ void dynamic_programming() {
             }
         }
     }
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(t2 - t1).count();
+    cout << "Time elapsed:"<<duration <<endl;
 
-    if(arr_computed_data[n-1][n-1] >=0) cout<<arr_computed_data[n-1][n-1]<<endl;
+    if (arr_computed_data[n - 1][n - 1] >= 0) cout << arr_computed_data[n - 1][n - 1] << endl;
     print_way(arr_direction, n);
 }
 
@@ -201,9 +216,9 @@ int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr
             return res + arr_initial_data[i][j];
         }
     } else {
-        int right= divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction);
+        int right = divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction);
         int down = divide_and_conquer_find_way(i - 1, j, arr_initial_data, arr_direction);
-        if(arr_initial_data[i][j] == -1) {
+        if (arr_initial_data[i][j] == -1) {
             return -1;
         }
         if (right > down) {
@@ -213,11 +228,10 @@ int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr
             (*arr_direction)[i][j] = DOWN;
             return down + arr_initial_data[i][j];
         } else {
-            if(right  ==  -1)
-            {
+            if (right == -1) {
                 (*arr_direction)[i][j] = -1;
                 return -1;
-            }else {
+            } else {
                 (*arr_direction)[i][j] = 0;
                 return right + arr_initial_data[i][j];
             }
@@ -235,14 +249,30 @@ void divide_and_conquer() {
         char file_name[100];
         cin >> file_name;
         n = get_input(&arr_initial_data, file_name);
-    } else {
+    } else if (input_type == 'r') {
         cin >> n;
+        arr_initial_data = new int*[n];
+        for (int i = 0; i < n; ++i) {
+            arr_initial_data[i] = new int[n];
+        }
+        arr_random(arr_initial_data,n,-1,4);
+    }else {
+        cin >> n;
+        arr_initial_data = new int*[n];
+        for (int i = 0; i < n; ++i) {
+            arr_initial_data[i] = new int[n];
+        }
         get_input(arr_initial_data, n);
     }
 
     int **arr_direction;
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     int ans = divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data, &arr_direction);
-    if(ans >= 0 ) cout << ans << endl;
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(t2 - t1).count();
+    cout << "Time elapsed:"<<duration <<endl;
+
+    if (ans >= 0) cout << ans << endl;
     print_way(arr_direction, n);
 }
 
@@ -297,7 +327,7 @@ int memoization_find_way(int i, int j, int **arr_initial_data, int ***arr_direct
         } else {
             int right = memoization_find_way(i, j - 1, arr_initial_data, arr_direction);
             int down = memoization_find_way(i - 1, j, arr_initial_data, arr_direction);
-            if(arr_initial_data[i][j] == -1) {
+            if (arr_initial_data[i][j] == -1) {
                 arr_computed_data[i][j] = -1;
             }
             if (right > down) {
@@ -307,11 +337,10 @@ int memoization_find_way(int i, int j, int **arr_initial_data, int ***arr_direct
                 (*arr_direction)[i][j] = DOWN;
                 arr_computed_data[i][j] = down + arr_initial_data[i][j];
             } else {
-                if(right  ==  -1)
-                {
+                if (right == -1) {
                     (*arr_direction)[i][j] = -1;
                     arr_computed_data[i][j] = -1;
-                }else {
+                } else {
                     (*arr_direction)[i][j] = 0;
                     arr_computed_data[i][j] = right + arr_initial_data[i][j];
                 }
@@ -333,18 +362,33 @@ void memoization() {
         char file_name[100];
         cin >> file_name;
         n = get_input(&arr_initial_data, file_name);
+    } else if (input_type == 'r') {
+        cin >> n;
+        arr_initial_data = new int*[n];
+        for (int i = 0; i < n; ++i) {
+            arr_initial_data[i] = new int[n];
+        }
+        arr_random(arr_initial_data,n,-1,4);
     } else {
         cin >> n;
+        arr_initial_data = new int*[n];
+        for (int i = 0; i < n; ++i) {
+            arr_initial_data[i] = new int[n];
+        }
         get_input(arr_initial_data, n);
     }
 
     int **arr_direction;
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     int ans = memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction);
-    if(ans >= 0 ) cout << ans << endl;
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    auto duration = duration_cast<microseconds>(t2 - t1).count();
+    cout << "Time elapsed:"<<duration <<endl;
+    if (ans >= 0) cout << ans << endl;
     print_way(arr_direction, n);
 }
 
 int main() {
-    dynamic_programming();
+    memoization();
     return 0;
 }

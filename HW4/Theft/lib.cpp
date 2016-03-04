@@ -14,21 +14,21 @@ void arr_print(int *arr, int size) {
     cout << endl;
 }
 
-void arr_print(double **arr, int size){
+void arr_print(double **arr, int size) {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            cout<<arr[i][j]<<" ";
+            cout << arr[i][j] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 }
 
-void arr_print(int **arr, int size){
+void arr_print(int **arr, int size) {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            cout<<arr[i][j]<<" ";
+            cout << arr[i][j] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 }
 
@@ -60,40 +60,56 @@ int arr_copy(int *arr_src, int *arr_dst, int begin_src, int end_src, int begin_d
     return 0;
 }
 
-void arr_copy(double **arr_src, double **arr_dst, int size, int skip_row, int skip_col){
+void arr_copy(double **arr_src, double **arr_dst, int size, int skip_row, int skip_col) {
     int row_dst = 0;
     int col_dst = 0;
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            if(i != skip_row && j != skip_col)
-                arr_dst[i+row_dst][j+col_dst] = arr_src[i][j];
-            if(i == skip_row)
+            if (i != skip_row && j != skip_col)
+                arr_dst[i + row_dst][j + col_dst] = arr_src[i][j];
+            if (i == skip_row)
                 row_dst = -1;
-            if(j == skip_col)
+            if (j == skip_col)
                 col_dst = -1;
         }
         col_dst = 0;
     }
 }
 
-void arr_create(double ***arr, int size){
-    *arr = new double*[size];
+void arr_create(double ***arr, int size) {
+    *arr = new double *[size];
     for (int i = 0; i < size; ++i) {
         (*arr)[i] = new double[size];
     }
 }
 
-void arr_delete(double **arr, int size){
+void arr_delete(double **arr, int size) {
     for (int i = 0; i < size; ++i) {
         delete arr[i];
     }
     delete arr;
 }
 
-void arr_init(int **arr, int size, int value){
+void arr_init(int **arr, int size, int value) {
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-           arr[i][j] = value;
+            arr[i][j] = value;
         }
+    }
+}
+
+int create_random_number(int min_value, int max_value) {
+    int range = max_value - min_value;
+    int x = rand()%range;
+    return x + min_value;
+}
+
+void arr_random(int **arr, int size, int min_value, int max_value) {
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            arr[i][j] =  create_random_number(min_value,max_value);
+
+        }
+
     }
 }
