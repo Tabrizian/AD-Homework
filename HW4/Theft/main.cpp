@@ -160,6 +160,8 @@ void dynamic_programming() {
             }
         }
     }
+
+    if(arr_computed_data[n-1][n-1] >=0) cout<<arr_computed_data[n-1][n-1]<<endl;
     print_way(arr_direction, n);
 }
 
@@ -239,7 +241,8 @@ void divide_and_conquer() {
     }
 
     int **arr_direction;
-    cout << divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data, &arr_direction) << endl;
+    int ans = divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data, &arr_direction);
+    if(ans >= 0 ) cout << ans << endl;
     print_way(arr_direction, n);
 }
 
@@ -336,11 +339,12 @@ void memoization() {
     }
 
     int **arr_direction;
-    cout << memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction) << endl;
+    int ans = memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction);
+    if(ans >= 0 ) cout << ans << endl;
     print_way(arr_direction, n);
 }
 
 int main() {
-    divide_and_conquer();
+    dynamic_programming();
     return 0;
 }
