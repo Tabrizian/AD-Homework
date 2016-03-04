@@ -175,14 +175,35 @@ int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr
     if (i == 0 && j == 0) {
         return 0;
     } else if (i == 0) {
-        (*arr_direction)[i][j] = RIGHT;
-        return divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction) + arr_initial_data[i][j];
+        if (arr_initial_data[i][j] == -1) {
+            (*arr_direction)[i][j] = -1;
+            return -1;
+        } else {
+            int res = divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction);
+            if (res == -1) {
+                (*arr_direction)[i][j] = -1;
+                return -1;
+
+            } else {
+                (*arr_direction)[i][j] = RIGHT;
+                return res + arr_initial_data[i][j];
+            }
+        }
     } else if (j == 0) {
-        (*arr_direction)[i][j] = DOWN;
-        return divide_and_conquer_find_way(i - 1, j, arr_initial_data, arr_direction) + arr_initial_data[i][j];
+        int res = divide_and_conquer_find_way(i - 1, j, arr_initial_data, arr_direction);
+        if (res == -1) {
+            (*arr_direction)[i][j] = -1;
+            return -1;
+        } else {
+            (*arr_direction)[i][j] = DOWN;
+            return res + arr_initial_data[i][j];
+        }
     } else {
-        int right = divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction);
+        int right= divide_and_conquer_find_way(i, j - 1, arr_initial_data, arr_direction);
         int down = divide_and_conquer_find_way(i - 1, j, arr_initial_data, arr_direction);
+        if(arr_initial_data[i][j] == -1) {
+            return -1;
+        }
         if (right > down) {
             (*arr_direction)[i][j] = RIGHT;
             return right + arr_initial_data[i][j];
@@ -190,8 +211,14 @@ int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr
             (*arr_direction)[i][j] = DOWN;
             return down + arr_initial_data[i][j];
         } else {
-            (*arr_direction)[i][j] = 0;
-            return right + arr_initial_data[i][j];
+            if(right  ==  -1)
+            {
+                (*arr_direction)[i][j] = -1;
+                return -1;
+            }else {
+                (*arr_direction)[i][j] = 0;
+                return right + arr_initial_data[i][j];
+            }
         }
     }
 }
@@ -314,6 +341,6 @@ void memoization() {
 }
 
 int main() {
-    memoization();
+    divide_and_conquer();
     return 0;
 }
