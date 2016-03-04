@@ -17,8 +17,13 @@ void get_input(int **arr, int n) {
 
 int get_input(int ***arr, char *filename) {
     ifstream test(filename);
+    if (!test.is_open()) {
+        cout << "File doesn't exist." << endl;
+        exit(-1);
+    }
     int n;
     test >> n;
+
     *arr = new int *[n];
 
     for (int k = 0; k < n; ++k) {
@@ -52,8 +57,8 @@ void print_way(int **arr_direction, int n) {
         }
     }
 
-    while(path.size() != 0){
-        cout<<path.top();
+    while (path.size() != 0) {
+        cout << path.top();
         path.pop();
     }
 }
@@ -160,7 +165,7 @@ void dynamic_programming() {
 
 int divide_and_conquer_find_way(int i, int j, int **arr_initial_data, int ***arr_direction) {
     static int state = 0;
-    if(state == 0){
+    if (state == 0) {
         *arr_direction = new int *[i + 1];
         for (int l = 0; l < i + 1; ++l) {
             (*arr_direction)[l] = new int[i + 1];
@@ -207,7 +212,7 @@ void divide_and_conquer() {
     }
 
     int **arr_direction;
-    cout << divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data, &arr_direction)<<endl;
+    cout << divide_and_conquer_find_way(n - 1, n - 1, arr_initial_data, &arr_direction) << endl;
     print_way(arr_direction, n);
 }
 
@@ -233,28 +238,58 @@ int memoization_find_way(int i, int j, int **arr_initial_data, int ***arr_direct
         return arr_computed_data[i][j];
     } else {
         if (i == 0 && j == 0) {
+            arr_computed_data[i][j] = 0;
             return 0;
         } else if (i == 0) {
-            (*arr_direction)[i][j] = RIGHT;
-            return memoization_find_way(i, j - 1, arr_initial_data, arr_direction) + arr_initial_data[i][j];
+            if (arr_initial_data[i][j] == -1) {
+                arr_computed_data[i][j] = -1;
+                (*arr_direction)[i][j] = -1;
+            } else {
+                int res = memoization_find_way(i, j - 1, arr_initial_data, arr_direction);
+                if (res == -1) {
+                    (*arr_direction)[i][j] = -1;
+                    arr_computed_data[i][j] = -1;
+
+                } else {
+                    (*arr_direction)[i][j] = RIGHT;
+                    arr_computed_data[i][j] = res + arr_initial_data[i][j];
+                }
+            }
         } else if (j == 0) {
-            (*arr_direction)[i][j] = DOWN;
-            return memoization_find_way(i - 1, j, arr_initial_data,arr_direction) + arr_initial_data[i][j];
+            int res = memoization_find_way(i - 1, j, arr_initial_data, arr_direction);
+            if (res == -1) {
+                (*arr_direction)[i][j] = -1;
+                arr_computed_data[i][j] = -1;
+            } else {
+                arr_computed_data[i][j] = res + arr_initial_data[i][j];
+                (*arr_direction)[i][j] = DOWN;
+            }
         } else {
-            int right = memoization_find_way(i, j - 1, arr_initial_data,arr_direction);
-            int down = memoization_find_way(i - 1, j, arr_initial_data,arr_direction);
+            int right = memoization_find_way(i, j - 1, arr_initial_data, arr_direction);
+            int down = memoization_find_way(i - 1, j, arr_initial_data, arr_direction);
+            if(arr_initial_data[i][j] == -1) {
+                arr_computed_data[i][j] = -1;
+            }
             if (right > down) {
+                arr_computed_data[i][j] = right + arr_initial_data[i][j];
                 (*arr_direction)[i][j] = RIGHT;
-                return right + arr_initial_data[i][j];
             } else if (right < down) {
                 (*arr_direction)[i][j] = DOWN;
-                return down + arr_initial_data[i][j];
+                arr_computed_data[i][j] = down + arr_initial_data[i][j];
             } else {
-                (*arr_direction)[i][j] = 0;
-                return right + arr_initial_data[i][j];
+                if(right  ==  -1)
+                {
+                    (*arr_direction)[i][j] = -1;
+                    arr_computed_data[i][j] = -1;
+                }else {
+                    (*arr_direction)[i][j] = 0;
+                    arr_computed_data[i][j] = right + arr_initial_data[i][j];
+                }
             }
         }
     }
+
+    return arr_computed_data[i][j];
 
 }
 
@@ -274,11 +309,11 @@ void memoization() {
     }
 
     int **arr_direction;
-    cout << memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction)<<endl;
+    cout << memoization_find_way(n - 1, n - 1, arr_initial_data, &arr_direction) << endl;
     print_way(arr_direction, n);
 }
 
 int main() {
-    divide_and_conquer();
+    memoization();
     return 0;
 }
