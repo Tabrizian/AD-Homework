@@ -15,7 +15,7 @@ int largest_seq_dp(struct data *arr, int size){
 
     for(int i = 0; i < size; i++){
         for(int j = 0; j < i; j++){
-            if(arr[i].heigth <= arr[j].heigth){
+            if(arr[i].heigth >= arr[j].heigth){
                 int temp = calculated_data[j] + 1;
                 if(temp > calculated_data[i]){
                     calculated_data[i] = temp;
@@ -61,6 +61,9 @@ int main(){
     struct data *arr = new struct data[n];
     get_input(arr,n);
     qsort(arr, n, sizeof(struct data), compare_data);
+
+    for(int i = 0; i < n; i++)
+        cout<<"Width: "<<arr[i].width<<" Heigth:"<<arr[i].heigth<<endl;
 
     cout<<largest_seq_dp(arr, n)<<endl;
 
