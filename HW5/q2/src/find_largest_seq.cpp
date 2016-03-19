@@ -1,27 +1,10 @@
 #include <iostream>
-#include <limits>
-#include <cstdio>
-#include <cstdlib>
 using namespace std;
 
 struct data{
     int index;
     int info;
 };
-
-int max(int num1, int num2){
-    int max_num = num1;
-    if(num2 > num1)
-        max_num = num2;
-    return max_num;
-}
-
-int data_compare(const void *i1,const void *i2){
-    struct data a = *((struct data *)i1);
-    struct data b = *((struct data *)i2);
-
-    return (a.index> b.index) ? 1 : (a.index == b.index) ? 0 : -1;
-}
 
 int largest_seq_recursive(struct data *arr, int index){
     if(index == 0) {
@@ -72,7 +55,6 @@ void get_input(struct data *arr, int size){
 }
 
 int main(){
-
     int n;
 
     cin>>n;
