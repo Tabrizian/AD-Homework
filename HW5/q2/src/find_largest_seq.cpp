@@ -20,7 +20,7 @@ int data_compare(const void *i1,const void *i2){
     struct data a = *((struct data *)i1);
     struct data b = *((struct data *)i2);
 
-    return (a.info > b.info) ? 1 : (a.info == b.info) ? 0 : -1;
+    return (a.index> b.index) ? 1 : (a.index == b.index) ? 0 : -1;
 }
 
 int largest_seq_recursive(struct data *arr, int index){
@@ -77,6 +77,10 @@ int main(){
     get_input(arr,n);
 
     qsort(arr, n, sizeof(struct data),data_compare);
+
+    for (int i = 0; i < n; ++i) {
+        cout<<"Index:"<<arr[i].index<<" Value:"<<arr[i].info<<endl;
+    }
     cout<<n - largest_seq_dp(arr, n)<<endl;
 
     return 0;
