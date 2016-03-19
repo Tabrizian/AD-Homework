@@ -54,6 +54,9 @@ int largest_seq_dp(struct data *arr, int size){
                 if(temp > calculated_data[i]){
                     calculated_data[i] = temp;
                 }
+            } else {
+                if(calculated_data[j] > calculated_data[i])
+                    calculated_data[i] = calculated_data[j];
             }
         }
     }
@@ -75,8 +78,6 @@ int main(){
     cin>>n;
     struct data *arr = new struct data[n];
     get_input(arr,n);
-
-    qsort(arr, n, sizeof(struct data),data_compare);
 
     cout<<n - largest_seq_dp(arr, n)<<endl;
 
