@@ -37,9 +37,6 @@ int largest_seq_dp(struct data *arr, int size){
                 if(temp > calculated_data[i]){
                     calculated_data[i] = temp;
                 }
-            } else {
-                if(calculated_data[j] > calculated_data[i])
-                    calculated_data[i] = calculated_data[j];
             }
         }
     }
