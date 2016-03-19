@@ -49,7 +49,7 @@ int largest_seq_dp(struct data *arr, int size){
 
     for(int i = 0; i < size; i++){
         for(int j = 0; j < i; j++){
-            if(arr[i].info <= arr[j].info){
+            if(arr[i].info >= arr[j].info){
                 int temp = calculated_data[j] + 1;
                 if(temp > calculated_data[i]){
                     calculated_data[i] = temp;
