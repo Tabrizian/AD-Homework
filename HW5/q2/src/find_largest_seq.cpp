@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include <cstdio>
+#include <cstdlib>
 using namespace std;
 
 struct data{
@@ -15,7 +16,7 @@ int max(int num1, int num2){
     return max_num;
 }
 
-int data_compare(void *i1,void *i2){
+int data_compare(const void *i1,const void *i2){
     struct data a = *((struct data *)i1);
     struct data b = *((struct data *)i2);
 
@@ -46,8 +47,11 @@ int largest_seq_dp(struct data *arr, int size){
 
 int main(){
 
+    int n;
     struct data arr[]={{1,6}, {2,5}, {3,4}};
 
+    cin>>n;
+    qsort(arr, n, sizeof(struct data),data_compare);
     cout<<largest_seq_recursive(arr, 6)<<endl;
 
     return 0;
