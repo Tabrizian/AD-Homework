@@ -3,7 +3,7 @@ using namespace std;
 
 struct data{
     int index;
-    int info;
+    double info;
 };
 
 int largest_seq_recursive(struct data *arr, int index){
