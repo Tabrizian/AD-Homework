@@ -6,6 +6,15 @@ struct data{
     double info;
 };
 
+int max(int *arr, int size){
+    int current = arr[0];
+    for(int i = 0;i < size; i++){
+        if(arr[i] > current)
+            current = arr[i];
+    }
+    return current;
+}
+
 int largest_seq_recursive(struct data *arr, int index){
     if(index == 0) {
         return 1;
@@ -41,7 +50,7 @@ int largest_seq_dp(struct data *arr, int size){
         }
     }
 
-    return calculated_data[size - 1];
+    return max(calculated_data, size);
 }
 
 void get_input(struct data *arr, int size){
