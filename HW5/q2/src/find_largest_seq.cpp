@@ -42,17 +42,42 @@ int largest_seq_recursive(struct data *arr, int index){
 }
 
 int largest_seq_dp(struct data *arr, int size){
+    int *calculated_data = new int[size];
+    for(int i = 0; i < size; i++){
+        calculated_data[i] = 1;
+    }
 
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < i; j++){
+            if(arr[i].info <= arr[j].info){
+                int temp = calculated_data[j] + 1;
+                if(temp > calculated_data[i]){
+                    calculated_data[i] = temp;
+                }
+            }
+        }
+    }
+
+    return calculated_data[size - 1];
+}
+
+void get_input(struct data *arr, int size){
+    for(int i = 0; i < size; i++)
+    {
+        cin>>arr[i].index>>arr[i].info;
+    }
 }
 
 int main(){
 
     int n;
-    struct data arr[]={{1,6}, {2,5}, {3,4}};
 
     cin>>n;
+    struct data *arr = new struct data[n];
+    get_input(arr,n);
+
     qsort(arr, n, sizeof(struct data),data_compare);
-    cout<<largest_seq_recursive(arr, 6)<<endl;
+    cout<<n - largest_seq_dp(arr, n)<<endl;
 
     return 0;
 }
