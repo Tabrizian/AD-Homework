@@ -15,8 +15,11 @@ int max(int num1, int num2){
     return max_num;
 }
 
-int data_compare(struct data data1,struct data data2){
-    if()
+int data_compare(void *i1,void *i2){
+    struct data a = *((struct data *)i1);
+    struct data b = *((struct data *)i2);
+
+    return (a.info > b.info) ? 1 : (a.info == b.info) ? 0 : -1;
 }
 
 int largest_seq_recursive(struct data *arr, int index){
@@ -28,7 +31,7 @@ int largest_seq_recursive(struct data *arr, int index){
 
     for(int i = 0;i < index; i++){
         if(arr[i].info <= arr[index].info){
-            int number = largest_seq(arr, i);
+            int number = largest_seq_recursive(arr, i);
             number++;
             if(number > current_max)
                 current_max = number;
@@ -43,9 +46,9 @@ int largest_seq_dp(struct data *arr, int size){
 
 int main(){
 
-    int arr[]={3, 4, -1, 0, 6, 2, 3};
+    struct data arr[]={{1,6}, {2,5}, {3,4}};
 
-    cout<<largest_seq(arr, 6)<<endl;
+    cout<<largest_seq_recursive(arr, 6)<<endl;
 
     return 0;
 }
