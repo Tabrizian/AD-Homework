@@ -62,9 +62,6 @@ int main(){
     get_input(arr,n);
     qsort(arr, n, sizeof(struct data), compare_data);
 
-    for(int i = 0; i < n; i++)
-        cout<<"Width: "<<arr[i].width<<" Heigth:"<<arr[i].heigth<<endl;
-
     cout<<largest_seq_dp(arr, n)<<endl;
 
     return 0;
