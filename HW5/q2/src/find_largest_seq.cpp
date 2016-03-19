@@ -78,9 +78,6 @@ int main(){
 
     qsort(arr, n, sizeof(struct data),data_compare);
 
-    for (int i = 0; i < n; ++i) {
-        cout<<"Index:"<<arr[i].index<<" Value:"<<arr[i].info<<endl;
-    }
     cout<<n - largest_seq_dp(arr, n)<<endl;
 
     return 0;
