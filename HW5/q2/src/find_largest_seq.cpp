@@ -1,6 +1,12 @@
 #include <iostream>
 #include <limits>
+#include <cstdio>
 using namespace std;
+
+struct data{
+    int index;
+    int info;
+};
 
 int max(int num1, int num2){
     int max_num = num1;
@@ -9,7 +15,11 @@ int max(int num1, int num2){
     return max_num;
 }
 
-int largest_seq(int *arr, int index){
+int data_compare(struct data data1,struct data data2){
+    if()
+}
+
+int largest_seq_recursive(struct data *arr, int index){
     if(index == 0) {
         return 1;
     }
@@ -17,7 +27,7 @@ int largest_seq(int *arr, int index){
     int current_max = 1;
 
     for(int i = 0;i < index; i++){
-        if(arr[i] <= arr[index]){
+        if(arr[i].info <= arr[index].info){
             int number = largest_seq(arr, i);
             number++;
             if(number > current_max)
@@ -25,6 +35,10 @@ int largest_seq(int *arr, int index){
         }
     }
     return current_max;
+}
+
+int largest_seq_dp(struct data *arr, int size){
+
 }
 
 int main(){
