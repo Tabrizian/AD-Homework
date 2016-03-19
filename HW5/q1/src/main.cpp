@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-#define SIZE 5
 struct sum{
     int start;
     int end;
@@ -28,10 +27,17 @@ int max_calc(struct sum values[],int size){
     return max_num;
 }
 int main(){
-    struct sum sums[SIZE];
-    int arr[] = {1, 2, -1, -4, -20};
+    int n;
+    cin>>n;
+
+    int *arr = new int[n];
+    for(int i = 0 ;i < n; i++){
+        cin>>arr[i];
+    }
+
+    struct sum *sums = new struct sum[n];
     int start = -1,end = -1;
-    for(int i=0;i<SIZE;i++)
+    for(int i=0;i<n;i++)
         sums[0].val = 0;
     if(arr[0] > 0){
         sums[0].val = arr[0];
@@ -39,7 +45,7 @@ int main(){
         sums[0].end = 0;
     }
 
-    for(int i = 1 ;i < SIZE;i++)
+    for(int i = 1 ;i < n;i++)
     {
         sums[i].val = max(sums[i-1].val + arr[i],arr[i]);
         if(sums[i].val == arr[i]){
@@ -50,10 +56,7 @@ int main(){
             sums[i].end = i;
         }
     }
-    for(int i = 0;i<SIZE;i++){
-        cout<<i<<" :";
-        cout<<sums[i].val<<" "<<sums[i].start<<" "<<sums[i].end<<endl;
-    }
-
+    cout<<sums[max_calc(sums,n)].val<<endl;
+    cout<<sums[max_calc(sums,n)].start<<" "<<sums[max_calc(sums,n)].end + 1<<endl;
     return 0;
 }
