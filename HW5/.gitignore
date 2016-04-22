@@ -41,5 +41,5 @@ install_manifest.txt
 
 # Build directory
 build/**
-.idea/**
+.idea/
 bin/**
