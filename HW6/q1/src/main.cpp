@@ -1,9 +1,15 @@
 #include <iostream>
 using namespace std;
 
+struct data {
+    int info;
+    int link;
+};
+
 int min(int a, int b) {
     return a < b ? a : b;
 }
+
 int main() {
     int n;
     cin >> n;
