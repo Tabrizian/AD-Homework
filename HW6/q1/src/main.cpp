@@ -1,38 +1,44 @@
 #include <iostream>
+#include "sort.h"
+#include "main.h"
+
 using namespace std;
-
-struct data {
-    int info;
-    int link;
-};
-
-int min(int a, int b) {
-    return a < b ? a : b;
-}
-
 int main() {
     int n;
     cin >> n;
 
-    int a[n];
-    int b[n];
+    struct data a[n];
+    struct data b[n];
 
     for(int i = 0; i < n;i++) {
-        cin >> a[i];
+        cin >> a[i].info;
+        a[i].link = i + 1;
     }
 
     for(int i = 0; i < n;i++) {
-        cin >> b[i];
+        cin >> b[i].info;
+        b[i].link = i + 1;
     }
 
-    int res[n][n];
+    int a_start = sort(a, n);
+    int b_start = sort(b, n);
 
-    for(int i = 0; i < n;i++) {
-        for(int j = 0; j < n;j++) {
-            int ans = min(a[i], b[j]);
-            res[i][j] = ans;
-            a[i] = a[i] - ans;
-            b[j] = b[j] - ans;
+    int answer[n][n];
+
+    for (int j = 0; j < n; ++j) {
+        for (int i = 0; i < n; ++i) {
+            answer[i][j] = 0;
+        }
+    }
+    for (int j = 0; j < n; ++j) {
+        for (int i = 0; i < n; ++i) {
+            if(a[a_start].info != 0 && b[b_start].info != 0 ) {
+                answer[j][i] = 1;
+                a_start = a[a_start].link;
+            } else if(a[a_start].info == 0 && b[b_start].info != 0) {
+                b_start = b[b_start].link;
+            }
+
         }
     }
 }
