@@ -40,5 +40,7 @@ int sort(struct data * array, int size) {
         current = index;
     }
 
+    array[current].link = start;
+
     return start;
 }
