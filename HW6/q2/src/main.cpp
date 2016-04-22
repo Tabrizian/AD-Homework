@@ -51,7 +51,7 @@ int main() {
 
     int ans[size];
     for (int n = 0; n < size; ++n) {
-        ans[size] = 1;
+        ans[n] = 1;
     }
 
     while (!is_array_zero(amount, size)) {
@@ -72,7 +72,11 @@ int main() {
 
     }
 
-    cout << res << endl;
+    cout << res - 1 << endl;
+    for (int i1 = 0; i1 < size; ++i1) {
+        cout << i1 << ":" << " " << ans[i1]<<endl;
+
+    }
 
 
     return 0;
