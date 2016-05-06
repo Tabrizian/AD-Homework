@@ -1,6 +1,7 @@
 #include "cache.h"
 
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 Cache::Cache(int k, char *dataset, int size) {
@@ -83,5 +84,10 @@ void Cache::print() {
     }
 
     cout<<endl;
+}
+
+int Cache::replacement_two() {
+    int random = rand();
+    return random % k;
 }
 
