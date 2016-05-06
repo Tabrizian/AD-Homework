@@ -1,5 +1,6 @@
 #ifndef CACHE_H
 #define CACHE_H
+#endif
 
 class Cache {
     private:
@@ -14,4 +15,6 @@ class Cache {
     private:
         int replacement();
         int used_index(char c);
+        void print();
+        int is_room();
 };
