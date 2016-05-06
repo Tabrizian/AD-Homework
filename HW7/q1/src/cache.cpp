@@ -26,7 +26,6 @@ bool Cache::read(char c) {
         }
     }
 
-    cout << "To be replaced:" << replacement() << endl;
     this->data[replacement()] = c;
     print();
     index++;
