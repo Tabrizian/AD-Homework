@@ -5,9 +5,13 @@ class Cache {
     private:
         int k;
         char *data;
+        char *dataset;
+        int size;
+        int index;
     public:
-        void Cache(int k);
+        Cache(int k, char *dataset, int size);
         bool read(char c);
     private:
         int replacement();
-}
+        int used_index(char c);
+};
