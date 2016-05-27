@@ -1,0 +1,1 @@
+add_executable(q2.out main.cpp graph.cpp graph.h)
