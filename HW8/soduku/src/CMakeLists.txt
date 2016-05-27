@@ -1,1 +1,1 @@
-add_executable(q2.out main.cpp)
+add_executable(soduku.out main.cpp)
