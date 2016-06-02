@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <iomanip>
 #include <cmath>
 #include <stdlib.h>
@@ -77,7 +78,7 @@ void solve(int **arr, int point, int size) {
         arr_print(arr, size * size);
         cout << endl << endl;
     } else {
-        if (arr[point % (size * size)][point / (size * size)] == -1) {
+        if (arr[point % (size * size)][point / (size * size)] == 0) {
             for (int i = 0; i < size * size; ++i) {
                 int **arr2 = new int *[size * size];
                 for (int j = 0; j < size * size; ++j) {
@@ -96,6 +97,49 @@ void solve(int **arr, int point, int size) {
     }
 }
 
+int mont_carlo(int **arr, int N) {
+
+    int r = rand();
+    int i, j;
+    vector<int> prom_child;
+
+    i = 0;
+    int numnodes = 1;
+    int m = 1;
+    int mprod = 1;
+
+    while (m != 0 && i != N) {
+
+        mprod = mprod * m;
+        numnodes = numnodes + mprod * N;
+        i++;
+        m = 0;
+        prom_child.clear();
+
+
+        int k;
+        if (arr[i % (N * N)][i / (N * N)] == 0) {
+            for (k = 0; k < N * N; ++k) {
+
+                arr_print(arr, N * N, arr);
+                if (promising(arr, k % (N * N), k / (N * N), k + 1, N)) {
+                    arr[i % (N * N)][i / (N * N)] = k + 1;
+                    m++;
+                    prom_child.push_back(k);
+                }
+            }
+        }
+
+        if (m != 0) {
+
+            r = rand();
+            k = r % prom_child.size();
+            arr[i % (N * N)][i / (N * N)] = k + 1;
+        }
+
+    }
+    return numnodes;
+}
 int main() {
     int size;
     cin >> size;
@@ -106,7 +150,7 @@ int main() {
     }
 
     get_input(arr, size);
-    solve(arr, 0, size);
 
+    cout << mont_carlo(arr, size);
     return 0;
 }
