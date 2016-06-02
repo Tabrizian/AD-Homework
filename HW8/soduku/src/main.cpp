@@ -108,10 +108,10 @@ int mont_carlo(int **arr, int N) {
     int m = 1;
     int mprod = 1;
 
-    while (m != 0 && i != N) {
+    while (m != 0 && i != N * N * N * N) {
 
         mprod = mprod * m;
-        numnodes = numnodes + mprod * N;
+        numnodes = numnodes + mprod * N * N;
         i++;
         m = 0;
         prom_child.clear();
@@ -134,7 +134,7 @@ int mont_carlo(int **arr, int N) {
 
             r = rand();
             k = r % prom_child.size();
-            arr[i % (N * N)][i / (N * N)] = k + 1;
+            arr[i % (N * N)][i / (N * N)] = prom_child.at(k) + 1;
         }
 
     }
