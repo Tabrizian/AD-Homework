@@ -63,7 +63,6 @@ int main() {
             if (arr[l][max_index] == 1) {
                 if (ans[l] == ans[max_index]) {
                     ans[l]++;
-                    res++;
                 }
                 arr[l][max_index] = 0;
             }
@@ -72,7 +71,7 @@ int main() {
 
     }
 
-    cout << res - 1 << endl;
+    cout << ans[find_max(ans, size)] << endl;
     for (int i1 = 0; i1 < size; ++i1) {
         cout << i1 << ":" << " " << ans[i1]<<endl;
 

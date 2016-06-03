@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <iomanip>
 #include <cmath>
@@ -151,6 +150,7 @@ int main() {
 
     get_input(arr, size);
 
+    // solve(arr, 0, size);
     cout << mont_carlo(arr, size);
     return 0;
 }
