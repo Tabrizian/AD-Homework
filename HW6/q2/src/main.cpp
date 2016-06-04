@@ -71,7 +71,7 @@ int main() {
 
     }
 
-    cout << ans[find_max(ans, size)] << endl;
+    cout << ans[find_max(ans, size)] + 1<< endl;
     for (int i1 = 0; i1 < size; ++i1) {
         cout << i1 << ":" << " " << ans[i1]<<endl;
 
